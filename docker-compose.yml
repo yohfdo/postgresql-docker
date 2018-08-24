@@ -1,0 +1,17 @@
+version: '3'
+services:
+  postgresql:
+    image: postgres:10.5
+    hostname: project_postgres
+    container_name: project_postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - PGDATA=/var/lib/postgresql/data
+    volumes:
+      - local-project-postgres-data:/var/lib/postgresql/data # Mount to docker volume to enable persistent data
+      - ./data:/tmp/import # Folder within current directory created to enable data files to be accessed by postgresql
+volumes:
+  local-project-postgres-data:
